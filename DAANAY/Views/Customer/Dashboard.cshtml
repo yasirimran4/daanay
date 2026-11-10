@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<div class="dashboard-box">
+    <h2>Customer Dashboard</h2>
+    <p class="mb-1">Welcome, <strong>@ViewBag.FullName</strong>.</p>
+    <p class="text-muted">Logged in as: @ViewBag.Email</p>
+
+    <hr />
+
+    <p>This is your customer area. From here you can manage your profile.</p>
+    <p class="text-muted small">Product browsing, cart, and orders will be added in later modules.</p>
+
+    <a class="btn btn-daanay" asp-controller="Customer" asp-action="Profile">View Profile</a>
+</div>
