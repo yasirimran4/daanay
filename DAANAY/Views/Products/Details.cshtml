@@ -1,0 +1,31 @@
+@model DAANAY.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="dashboard-box">
+            <div class="mb-2">
+                <span class="badge bg-secondary">@Model.CategoryName</span>
+            </div>
+            <h2 class="mb-2">@Model.Name</h2>
+            <p class="lead price mb-3">PKR @Model.Price.ToString("N0") <span class="text-muted fs-6">/ @Model.Unit</span></p>
+            <p class="mb-3">@Model.Description</p>
+            <p class="mb-4"><strong>In stock:</strong> @Model.Stock</p>
+
+            <form asp-controller="Cart" asp-action="Add" method="post" class="row g-2 align-items-end mb-3">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <div class="col-auto">
+                    <label class="form-label" for="quantity">Quantity</label>
+                    <input class="form-control" type="number" id="quantity" name="quantity" value="1" min="1" style="width: 100px;" />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-daanay">Add to Cart</button>
+                </div>
+            </form>
+
+            <a class="btn btn-outline-secondary" asp-action="Index">Back to Products</a>
+        </div>
+    </div>
+</div>

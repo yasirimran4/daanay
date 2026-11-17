@@ -1,0 +1,46 @@
+@model List<DAANAY.Models.Order>
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<div class="page-header mb-4">
+    <h2 class="mb-1">My Orders</h2>
+    <p class="text-muted mb-0">Sample customer order history.</p>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-light border">No orders yet.</div>
+}
+else
+{
+    <div class="table-responsive dashboard-box p-0">
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Order #</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderDate.ToString("dd MMM yyyy")</td>
+                    <td><span class="badge status-@order.Status.ToLowerInvariant()">@order.Status</span></td>
+                    <td>@order.PaymentMethod</td>
+                    <td>PKR @order.TotalAmount.ToString("N0")</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-daanay" asp-action="Details" asp-route-id="@order.Id">View</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

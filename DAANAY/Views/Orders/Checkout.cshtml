@@ -1,0 +1,76 @@
+@model DAANAY.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+    var cart = ViewBag.Cart as List<DAANAY.Models.CartItem> ?? new List<DAANAY.Models.CartItem>();
+    decimal cartTotal = ViewBag.CartTotal ?? 0m;
+}
+
+<div class="page-header mb-4">
+    <h2 class="mb-1">Checkout</h2>
+    <p class="text-muted mb-0">Enter delivery details and place your Cash on Delivery order.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="dashboard-box">
+            <h5 class="mb-3">Delivery Details</h5>
+            <form asp-action="Checkout" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label"></label>
+                    <input asp-for="Phone" class="form-control" placeholder="03XX-XXXXXXX" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DeliveryAddress" class="form-label"></label>
+                    <textarea asp-for="DeliveryAddress" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PaymentMethod" class="form-label"></label>
+                    <input asp-for="PaymentMethod" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Notes" class="form-label"></label>
+                    <textarea asp-for="Notes" class="form-control" rows="2" placeholder="Optional"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-daanay">Place Order (COD)</button>
+                <a class="btn btn-outline-secondary" asp-controller="Cart" asp-action="Index">Back to Cart</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="dashboard-box">
+            <h5 class="mb-3">Order Summary</h5>
+            <ul class="list-group list-group-flush mb-3">
+                @foreach (var item in cart)
+                {
+                    <li class="list-group-item d-flex justify-content-between px-0">
+                        <span>@item.ProductName × @item.Quantity</span>
+                        <span>PKR @item.LineTotal.ToString("N0")</span>
+                    </li>
+                }
+            </ul>
+            <div class="d-flex justify-content-between fw-bold">
+                <span>Total</span>
+                <span>PKR @cartTotal.ToString("N0")</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

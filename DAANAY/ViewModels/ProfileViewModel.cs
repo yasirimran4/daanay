@@ -6,17 +6,17 @@ public class ProfileViewModel
 {
     [Required(ErrorMessage = "Full name is required.")]
     [Display(Name = "Full Name")]
-    [StringLength(100)]
-    public string FullName { get; set; } = string.Empty;
+    public string FullName { get; set; } = "Ayesha Khan";
 
+    [Required(ErrorMessage = "Email is required.")]
+    [EmailAddress]
     [Display(Name = "Email")]
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; } = "ayesha@example.com";
 
-    [Phone(ErrorMessage = "Please enter a valid phone number.")]
     [Display(Name = "Phone Number")]
-    public string? PhoneNumber { get; set; }
+    public string? PhoneNumber { get; set; } = "0300-1234567";
 
-    [Display(Name = "Address")]
-    [StringLength(250)]
-    public string? Address { get; set; }
+    [Display(Name = "Delivery Address")]
+    [DataType(DataType.MultilineText)]
+    public string? Address { get; set; } = "House 12, Street 4, Islamabad";
 }

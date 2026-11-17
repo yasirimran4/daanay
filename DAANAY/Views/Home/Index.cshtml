@@ -5,22 +5,33 @@
 <div class="home-hero text-center">
     <h1>DAANAY</h1>
     <p class="lead">Fresh dry fruits delivered to your door.</p>
-    <p class="mb-4">Register or log in to access your customer dashboard.</p>
+    <p class="mb-4">Browse products, manage your cart, place COD orders, or open the admin dashboard.</p>
 
-    @if (User.Identity?.IsAuthenticated == true)
-    {
-        @if (User.IsInRole("Admin"))
-        {
-            <a class="btn btn-daanay" asp-controller="Admin" asp-action="Dashboard">Go to Admin Dashboard</a>
-        }
-        else
-        {
-            <a class="btn btn-daanay" asp-controller="Customer" asp-action="Dashboard">Go to Dashboard</a>
-        }
-    }
-    else
-    {
-        <a class="btn btn-daanay me-2" asp-controller="Account" asp-action="Signup">Sign Up</a>
-        <a class="btn btn-outline-daanay" asp-controller="Account" asp-action="Login">Login</a>
-    }
+    <a class="btn btn-daanay me-2" asp-controller="Products" asp-action="Index">Browse Products</a>
+    <a class="btn btn-outline-daanay me-2" asp-controller="Account" asp-action="Signup">Sign Up</a>
+    <a class="btn btn-outline-daanay" asp-controller="Account" asp-action="Login">Login</a>
+</div>
+
+<div class="row g-3 mt-2">
+    <div class="col-md-4">
+        <div class="dashboard-box h-100 text-center">
+            <h5>Customer Area</h5>
+            <p class="text-muted">Cart, checkout, orders, and profile.</p>
+            <a class="btn btn-sm btn-daanay" asp-controller="Customer" asp-action="Dashboard">Customer Dashboard</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="dashboard-box h-100 text-center">
+            <h5>Shopping Cart</h5>
+            <p class="text-muted">Add dry fruits and place COD orders.</p>
+            <a class="btn btn-sm btn-outline-daanay" asp-controller="Cart" asp-action="Index">Open Cart</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="dashboard-box h-100 text-center">
+            <h5>Admin Area</h5>
+            <p class="text-muted">Products, categories, inventory, orders.</p>
+            <a class="btn btn-sm btn-outline-daanay" asp-controller="Admin" asp-action="Dashboard">Admin Dashboard</a>
+        </div>
+    </div>
 </div>

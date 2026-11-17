@@ -1,0 +1,82 @@
+@model DAANAY.Models.Order
+@{
+    ViewData["Title"] = $"Manage Order #{Model.Id}";
+    var statuses = ViewBag.Statuses as string[] ?? Array.Empty<string>();
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<div class="dashboard-box mb-4">
+    <h2 class="mb-3">Order #@Model.Id</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <p class="mb-1"><strong>Customer:</strong> @Model.CustomerName</p>
+            <p class="mb-1"><strong>Phone:</strong> @Model.Phone</p>
+            <p class="mb-1"><strong>Payment:</strong> @Model.PaymentMethod</p>
+            <p class="mb-0"><strong>Date:</strong> @Model.OrderDate.ToString("dd MMM yyyy HH:mm")</p>
+        </div>
+        <div class="col-md-6">
+            <p class="mb-1"><strong>Delivery Address</strong></p>
+            <p class="mb-3">@Model.DeliveryAddress</p>
+
+            <form asp-action="UpdateOrderStatus" method="post" class="row g-2 align-items-end">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="col-auto">
+                    <label class="form-label" for="status">Update Status</label>
+                    <select class="form-select" id="status" name="status">
+                        @foreach (var status in statuses)
+                        {
+                            if (status == Model.Status)
+                            {
+                                <option value="@status" selected>@status</option>
+                            }
+                            else
+                            {
+                                <option value="@status">@status</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-daanay">Save Status</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Line Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>PKR @item.UnitPrice.ToString("N0")</td>
+                    <td>PKR @item.LineTotal.ToString("N0")</td>
+                </tr>
+            }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" class="text-end">Total</th>
+                    <th>PKR @Model.TotalAmount.ToString("N0")</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <a class="btn btn-outline-secondary" asp-action="Orders">Back to Orders</a>
+</div>

@@ -10,31 +10,24 @@
             <p class="text-muted mb-4">Join DAANAY to shop dry fruits online.</p>
 
             <form asp-action="Signup" method="post">
-                @Html.AntiForgeryToken()
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
                 <div class="mb-3">
                     <label asp-for="FullName" class="form-label"></label>
                     <input asp-for="FullName" class="form-control" placeholder="Your full name" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label"></label>
                     <input asp-for="Email" class="form-control" placeholder="you@example.com" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Password" class="form-label"></label>
                     <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="ConfirmPassword" class="form-label"></label>
                     <input asp-for="ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
                 <button type="submit" class="btn btn-daanay w-100">Sign Up</button>
@@ -47,7 +40,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

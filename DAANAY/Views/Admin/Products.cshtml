@@ -1,0 +1,55 @@
+@model List<DAANAY.Models.Product>
+@{
+    ViewData["Title"] = "Manage Products";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h2 class="mb-1">Products</h2>
+        <p class="text-muted mb-0">Admin product management (sample data).</p>
+    </div>
+    <a class="btn btn-daanay" asp-action="CreateProduct">Add Product</a>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<div class="table-responsive dashboard-box p-0">
+    <table class="table table-hover mb-0 align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Unit</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.CategoryName</td>
+                <td>PKR @product.Price.ToString("N0")</td>
+                <td>@product.Stock</td>
+                <td>@product.Unit</td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-outline-daanay" asp-action="EditProduct" asp-route-id="@product.Id">Edit</a>
+                    <form asp-action="DeleteProduct" method="post" class="d-inline" onsubmit="return confirm('Delete this product?');">
+                        <input type="hidden" name="id" value="@product.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<p class="mt-3 mb-0">
+    <a asp-action="Dashboard">Back to Dashboard</a>
+</p>

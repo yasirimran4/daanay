@@ -2,15 +2,38 @@
     ViewData["Title"] = "Customer Dashboard";
 }
 
-<div class="dashboard-box">
-    <h2>Customer Dashboard</h2>
-    <p class="mb-1">Welcome, <strong>@ViewBag.FullName</strong>.</p>
-    <p class="text-muted">Logged in as: @ViewBag.Email</p>
+<div class="page-header mb-4">
+    <h2 class="mb-1">Customer Dashboard</h2>
+    <p class="text-muted mb-0">Quick links for shopping and account pages.</p>
+</div>
 
-    <hr />
-
-    <p>This is your customer area. From here you can manage your profile.</p>
-    <p class="text-muted small">Product browsing, cart, and orders will be added in later modules.</p>
-
-    <a class="btn btn-daanay" asp-controller="Customer" asp-action="Profile">View Profile</a>
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="dashboard-box h-100">
+            <h5>Browse Products</h5>
+            <p class="text-muted">View dry fruits, prices, and stock.</p>
+            <a class="btn btn-daanay btn-sm" asp-controller="Products" asp-action="Index">Shop Now</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="dashboard-box h-100">
+            <h5>My Cart</h5>
+            <p class="text-muted">Review items before placing an order.</p>
+            <a class="btn btn-daanay btn-sm" asp-controller="Cart" asp-action="Index">Open Cart</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="dashboard-box h-100">
+            <h5>Order History</h5>
+            <p class="text-muted">Track Pending, Confirmed, Shipped, Delivered.</p>
+            <a class="btn btn-daanay btn-sm" asp-controller="Orders" asp-action="History">My Orders</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="dashboard-box h-100">
+            <h5>My Profile</h5>
+            <p class="text-muted">Update name, phone, and delivery address.</p>
+            <a class="btn btn-outline-daanay btn-sm" asp-action="Profile">Edit Profile</a>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,71 @@
+@model List<DAANAY.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+    var categories = ViewBag.Categories as List<DAANAY.Models.Category> ?? new List<DAANAY.Models.Category>();
+    string search = ViewBag.Search ?? string.Empty;
+    int? categoryId = ViewBag.CategoryId as int?;
+}
+
+<div class="page-header mb-4">
+    <h2 class="mb-1">Browse Dry Fruits</h2>
+    <p class="text-muted mb-0">Search products and filter by category.</p>
+</div>
+
+<form method="get" class="row g-2 align-items-end mb-4 filter-bar">
+    <div class="col-md-5">
+        <label class="form-label" for="search">Search</label>
+        <input class="form-control" id="search" name="search" value="@search" placeholder="e.g. almonds, dates" />
+    </div>
+    <div class="col-md-4">
+        <label class="form-label" for="categoryId">Category</label>
+        <select class="form-select" id="categoryId" name="categoryId">
+            <option value="">All categories</option>
+            @foreach (var cat in categories)
+            {
+                if (categoryId == cat.Id)
+                {
+                    <option value="@cat.Id" selected>@cat.Name</option>
+                }
+                else
+                {
+                    <option value="@cat.Id">@cat.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-daanay w-100">Filter</button>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-light border">No products match your filters.</div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="product-card h-100">
+                    <div class="product-badge">@product.CategoryName</div>
+                    <h5 class="mb-2">@product.Name</h5>
+                    <p class="text-muted small mb-3">@product.Description</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <strong class="price">PKR @product.Price.ToString("N0")</strong>
+                        <span class="text-muted small">@product.Unit · Stock @product.Stock</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-outline-daanay btn-sm flex-fill" asp-action="Details" asp-route-id="@product.Id">Details</a>
+                        <form asp-controller="Cart" asp-action="Add" method="post" class="flex-fill">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <button type="submit" class="btn btn-daanay btn-sm w-100">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
